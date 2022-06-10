@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {SkillCard} from '../components/SkillCard';
 export function Home() {
   const [newSkill, setNewSkill] = useState('');
   const [mySkills, setMySkills] = useState([]);
+  const [greetings, setGreetings] = useState('');
 
   function handleAddNewSkill() {
     setMySkills(oldState => [...oldState, newSkill]);
@@ -21,9 +22,24 @@ export function Home() {
   // O '...' É para pegar os itens que tem dentro, se eu colocasse sem
   // Ele retornaria o seguinte [[], new skill], com os spreads "...", ele retorna
   // assim => [state1, state2, state3, newSkill], retorna os itens de dentro do array antigo
+
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    console.log(currentHour);
+
+    if (currentHour < 12) {
+      setGreetings('Good Morning');
+    } else if (currentHour >= 12 && currentHour < 18) {
+      setGreetings('Good Afternoon');
+    } else {
+      setGreetings('Good Night');
+    }
+  }, [mySkills]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome, Robin</Text>
+      <Text style={styles.greetings}>{greetings}</Text>
 
       <TextInput
         style={styles.input}
@@ -68,5 +84,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 18,
     padding: Platform.OS === 'ios' ? 15 : 10,
+  },
+  greetings: {
+    color: '#FFF',
+    marginTop: 5,
   },
 });
