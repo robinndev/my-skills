@@ -21,7 +21,6 @@ export function Home() {
   // O '...' É para pegar os itens que tem dentro, se eu colocasse sem
   // Ele retornaria o seguinte [[], new skill], com os spreads "...", ele retorna
   // assim => [state1, state2, state3, newSkill], retorna os itens de dentro do array antigo
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome, Robin</Text>
